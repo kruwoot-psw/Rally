@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- บังคับสัดส่วนหน้าจอให้พอดีกับอุปกรณ์ และป้องกันการซูมเพี้ยน -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เว็บแอประบบ Rally</title>
+    <style>
+        /* ล้างค่าขอบ (Margin/Padding) พื้นฐานของเบราว์เซอร์ */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* ป้องกันการเกิดแถบเลื่อน (Scrollbar) ของหน้าหลัก */
+            background-color: #f8f9fa; /* ใส่สีพื้นหลังให้ดูเนียนตาตอนกำลังโหลด */
+        }
+
+        /* ตั้งค่า iframe ให้ยืดเต็มหน้าจอ 100% แบบ Absolute */
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- นำลิงก์ Web App มาใส่ใน src -->
+    <iframe 
+        class="responsive-iframe" 
+        src="https://script.google.com/a/macros/skburana.ac.th/s/AKfycbxfjPjwufbpVXRsiRN2Xj6iBaD_9_WGAHrokwLu0CvVnuUa-fqYhnbYpHbrV7tP8NXd/exec" 
+        allowfullscreen>
+    </iframe>
+</body>
+</html>
