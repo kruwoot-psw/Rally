@@ -1,39 +1,114 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- บังคับสัดส่วนหน้าจอให้พอดีกับอุปกรณ์ และป้องกันการซูมเพี้ยน -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เว็บแอประบบ Rally</title>
-    <style>
-        /* ล้างค่าขอบ (Margin/Padding) พื้นฐานของเบราว์เซอร์ */
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; /* ป้องกันการเกิดแถบเลื่อน (Scrollbar) ของหน้าหลัก */
-            background-color: #f8f9fa; /* ใส่สีพื้นหลังให้ดูเนียนตาตอนกำลังโหลด */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Digital Stamp Rally - เริ่มต้นภารกิจ</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-        /* ตั้งค่า iframe ให้ยืดเต็มหน้าจอ 100% แบบ Absolute */
-        .responsive-iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      margin: 0;
+      overflow: hidden;
+      /* พื้นหลังไล่สีสไตล์ Modern Gaming */
+      background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 50%, #06b6d4 100%);
+    }
+
+    /* วงกลมเรืองแสงตกแต่งพื้นหลัง */
+    .blob {
+      position: absolute;
+      filter: blur(60px);
+      z-index: 1;
+      opacity: 0.6;
+      animation: float 10s infinite ease-in-out alternate;
+    }
+    .blob-1 { top: -10%; left: -10%; width: 300px; height: 300px; background: #c026d3; }
+    .blob-2 { bottom: -10%; right: -10%; width: 350px; height: 350px; background: #3b82f6; animation-delay: -5s; }
+    .blob-3 { top: 40%; left: 50%; width: 250px; height: 250px; background: #f59e0b; animation-delay: -2s; }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, 50px) scale(1.1); }
+      100% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    /* ปุ่มพัลส์ */
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+      70% { box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+    }
+    .btn-start {
+      animation: pulse-ring 2s infinite;
+    }
+  </style>
 </head>
-<body>
-    <!-- นำลิงก์ Web App มาใส่ใน src -->
-    <iframe 
-        class="responsive-iframe" 
-        src="https://script.google.com/a/macros/skburana.ac.th/s/AKfycbxfjPjwufbpVXRsiRN2Xj6iBaD_9_WGAHrokwLu0CvVnuUa-fqYhnbYpHbrV7tP8NXd/exec" 
-        allowfullscreen>
-    </iframe>
+<body class="h-screen w-screen flex items-center justify-center text-white relative">
+
+  <!-- ของตกแต่งพื้นหลัง -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Main Container -->
+  <div class="relative z-10 w-full max-w-sm px-6 flex flex-col items-center">
+    
+    <!-- กล่องหลัก (Glassmorphism) -->
+    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[2.5rem] p-8 shadow-2xl text-center w-full animate__animated animate__zoomIn">
+      
+      <!-- ไอคอน/โลโก้ -->
+      <div class="relative w-28 h-28 mx-auto mb-6">
+        <div class="absolute inset-0 bg-yellow-400 rounded-full blur-lg opacity-50 animate-pulse"></div>
+        <div class="relative w-full h-full bg-gradient-to-tr from-yellow-300 to-orange-500 rounded-full flex items-center justify-center shadow-inner border-[4px] border-white/30">
+          <i class="ph-fill ph-map-trifold text-5xl text-white"></i>
+        </div>
+        <!-- ไอคอนดาวดวงเล็กๆ -->
+        <i class="ph-fill ph-star text-yellow-200 text-2xl absolute -top-2 -right-2 animate-bounce"></i>
+        <i class="ph-fill ph-star text-yellow-200 text-lg absolute bottom-2 -left-3 animate-pulse"></i>
+      </div>
+
+      <!-- ข้อความต้อนรับ -->
+      <h1 class="text-3xl font-black mb-2 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-100 drop-shadow-sm">
+        DIGITAL<br>STAMP RALLY
+      </h1>
+      <p class="text-blue-100 text-sm mb-8 font-light leading-relaxed px-2">
+        ยินดีต้อนรับนักสำรวจ! <br>ร่วมตามหาพิกัดลับและสะสมสแตมป์<br>เพื่อพิชิตภารกิจให้สำเร็จ
+      </p>
+
+      <!-- 🟢 ปุ่มลิงก์เข้าสู่ระบบ (URL ของครูอยู่ตรงนี้) 🟢 -->
+      <a href="https://script.google.com/macros/s/AKfycbxfjPjwufbpVXRsiRN2Xj6iBaD_9_WGAHrokwLu0CvVnuUa-fqYhnbYpHbrV7tP8NXd/exec" 
+         target="_self" 
+         class="btn-start group relative w-full flex items-center justify-center gap-3 bg-white text-blue-600 font-bold text-lg py-4 rounded-2xl shadow-xl hover:bg-gray-50 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden">
+        <span class="relative z-10 flex items-center gap-2">
+          เริ่มทำภารกิจ <i class="ph-bold ph-rocket-launch text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+        </span>
+      </a>
+
+      <!-- คำแนะนำเรื่อง GPS -->
+      <div class="mt-6 flex items-start gap-2 text-left bg-black/20 p-3 rounded-xl border border-white/10">
+        <i class="ph-fill ph-warning-circle text-yellow-400 text-lg shrink-0 mt-0.5"></i>
+        <p class="text-[10px] text-gray-200 leading-snug">
+          หากเปิดผ่านแอป LINE กรุณากดเมนูมุมขวาบน <strong>"เปิดในเบราว์เซอร์"</strong> (Safari / Chrome) เพื่อให้ระบบแผนที่ทำงานได้สมบูรณ์
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Footer Credit -->
+    <p class="mt-8 text-xs text-white/50 font-medium tracking-widest animate__animated animate__fadeIn animate__delay-1s">
+      POWERED BY KRU WOOT
+    </p>
+
+  </div>
+
 </body>
 </html>
