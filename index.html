@@ -35,24 +35,38 @@
 </head>
 <body class="h-screen w-screen relative">
 
-  <!-- 🟢 1. หน้าจอตรวจจับ IN-APP BROWSER (จะโชว์ก็ต่อเมื่อเปิดจากแอปโซเชียล) 🟢 -->
+  <!-- 🟢 1. หน้าจอตรวจจับ IN-APP BROWSER พร้อมปุ่มช่วยเหลือ 🟢 -->
   <div id="inAppWarning" class="hidden absolute inset-0 z-[200] bg-gray-900 text-white flex flex-col items-center justify-center p-6 text-center">
-    <div class="animate__animated animate__bounceIn">
+    <div class="animate__animated animate__bounceIn w-full max-w-sm">
       <i class="ph-fill ph-warning text-yellow-400 text-7xl mb-4"></i>
       <h2 class="text-2xl font-bold mb-2">ไม่สามารถใช้ GPS ในแอปนี้ได้</h2>
-      <p class="text-gray-300 text-sm mb-8 leading-relaxed">
-        เพื่อความเสถียรของระบบแผนที่<br>กรุณากดเปิดในเบราว์เซอร์หลักของเครื่อง<br>(Chrome หรือ Safari)
+      <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+        ระบบโซเชียลบล็อกการเข้าถึงแผนที่<br>กรุณากดเปิดผ่านเบราว์เซอร์หลักของเครื่องครับ
       </p>
       
-      <!-- คำแนะนำสำหรับ Android (LINE/FB) -->
-      <div class="bg-white/10 p-4 rounded-xl border border-white/20 mb-4 text-left">
-        <p class="text-sm font-semibold text-yellow-300 mb-1">📱 วิธีเปิด (Android/iOS):</p>
-        <p class="text-xs text-gray-200">1. กดที่ไอคอน <strong class="text-white">จุด 3 จุด (⋮)</strong> มุมขวาบนหรือล่าง</p>
-        <p class="text-xs text-gray-200">2. เลือกเมนู <strong class="text-white">"เปิดในเบราว์เซอร์"</strong></p>
-        <p class="text-xs text-gray-200"> หรือ <strong class="text-white">"Open in external browser"</strong></p>
+      <!-- ปุ่มช่วยเหลือ -->
+      <div class="flex flex-col gap-3 w-full mb-6">
+        
+        <!-- ปุ่มเปิด Chrome อัตโนมัติ -->
+        <button onclick="forceOpenChrome()" class="w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 hover:bg-blue-700 active:scale-95 transition shadow-lg shadow-blue-500/30">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 4.14C14.07 4.14 15.93 4.94 17.33 6.26L12.22 15.11C11.39 15.17 10.55 14.86 10 14.28L6.47 8.16C7.88 5.76 9.8 4.14 12 4.14ZM4.14 12C4.14 9.4 5.21 7.07 7.04 5.56L12.3 14.65C12.55 15.08 12.98 15.35 13.5 15.35H7.72C5.55 15.35 4.14 13.78 4.14 12ZM12 19.86C9.52 19.86 7.33 18.57 6 16.5H13.5C14.6 16.5 15.5 15.6 15.5 14.5V11.23L19.26 17.75C17.84 19.06 15.02 19.86 12 19.86Z"/></svg>
+          เปิดใน Google Chrome
+        </button>
+
+        <!-- ปุ่มคัดลอกลิงก์ -->
+        <button onclick="copyToClipboard()" class="w-full bg-gray-700 text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-600 active:scale-95 transition">
+          <i class="ph-bold ph-copy text-xl"></i> คัดลอกลิงก์ (นำไปวางใน Safari)
+        </button>
+
+      </div>
+      
+      <!-- คำแนะนำสำหรับผู้ใช้ iPhone/LINE -->
+      <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-left">
+        <p class="text-sm font-semibold text-yellow-300 mb-1">🍎 สำหรับผู้ใช้ iPhone / iPad:</p>
+        <p class="text-xs text-gray-200">1. กดที่ไอคอน <strong class="text-white">จุด 3 จุด (⋯)</strong> มุมจอ</p>
+        <p class="text-xs text-gray-200">2. เลือก <strong class="text-white">"เปิดในเบราว์เซอร์"</strong> หรือ Safari</p>
       </div>
 
-      <p class="text-[10px] text-gray-400 animate-pulse mt-4">กรุณาทำตามขั้นตอนด้านบนเพื่อเข้าสู่ระบบ...</p>
     </div>
   </div>
 
@@ -92,7 +106,6 @@
           ยินดีต้อนรับนักสำรวจ! <br>ร่วมตามหาพิกัดลับและสะสมสแตมป์<br>เพื่อพิชิตภารกิจให้สำเร็จ
         </p>
 
-        <!-- ซ่อน Iframe ไปเลยเมื่อกด -->
         <button onclick="startGame()" class="btn-start group relative w-full flex items-center justify-center gap-3 bg-white text-blue-600 font-bold text-lg py-4 rounded-2xl shadow-xl hover:bg-gray-50 hover:scale-105 active:scale-95 transition-all duration-300">
           <span class="relative z-10 flex items-center gap-2">
             เริ่มทำภารกิจ <i class="ph-bold ph-rocket-launch text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
@@ -118,19 +131,48 @@
       const inAppWarning = document.getElementById('inAppWarning');
       
       if (isLine || isFB) {
-        // ถ้ารู้ว่าเป็นแอป ให้แสดงหน้าต่างเตือนบังหน้าจอทั้งหมดทันที
+        // ถ้ารู้ว่าเป็นแอปโซเชียล ให้โชว์หน้าต่างคำเตือน
         inAppWarning.classList.remove('hidden');
         
-        // ทริคเสริม: บังคับให้ลิงก์พยายามเปิดตัวเองผ่าน Intent (ถ้าเป็น Android จะเด้งออกเบราว์เซอร์ทันที)
+        // ถ้าเป็น Android ให้ลองบังคับเด้งเปิด Chrome ให้อัตโนมัติทันที
         if (/android/i.test(ua)) {
-          const currentUrl = window.location.href;
-          const intentUrl = "intent:" + currentUrl.replace(/https?:\/\//i, "") + "#Intent;scheme=https;package=com.android.chrome;end";
-          window.location.href = intentUrl;
+          forceOpenChrome();
         }
       }
     });
 
-    // 🟢 ฟังก์ชันซ่อนหน้า Landing ให้เห็นแอปจริง (Iframe) 🟢
+    // 🟢 ฟังก์ชันบังคับเปิดแอป Chrome 🟢
+    function forceOpenChrome() {
+      const currentUrl = window.location.href.replace(/^https?:\/\//i, ""); // เอา https:// ออก
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      
+      if (/android/i.test(ua)) {
+        // สูตรบังคับเปิด Chrome ของ Android
+        window.location.href = "intent://" + currentUrl + "#Intent;scheme=https;package=com.android.chrome;end";
+      } else {
+        // สูตรเปิด Chrome ของ iOS (ถ้ามีแอป Chrome ในเครื่อง)
+        window.location.href = "googlechrome://" + currentUrl;
+        
+        // ถ้าไม่มีแอป Chrome ให้ขึ้นแจ้งเตือนหลังผ่านไป 1 วิ
+        setTimeout(() => {
+          alert("ไม่พบแอป Chrome ในเครื่อง กรุณากดปุ่ม 3 จุดมุมขวาบน แล้วเลือก 'เปิดใน Safari' แทนนะครับ");
+        }, 1500);
+      }
+    }
+
+    // 🟢 ฟังก์ชันคัดลอกลิงก์ 🟢
+    function copyToClipboard() {
+      const dummy = document.createElement('input'), text = window.location.href;
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+      
+      alert("✅ คัดลอกลิงก์เรียบร้อยแล้ว!\n\nกรุณาสลับไปเปิดแอป Safari หรือ Chrome แล้ววางลิงก์เพื่อเข้าใช้งานได้เลยครับ");
+    }
+
+    // 🟢 ฟังก์ชันซ่อนหน้า Landing 🟢
     function startGame() {
       const landing = document.getElementById('landing-screen');
       landing.classList.add('animate__animated', 'animate__zoomOut');
